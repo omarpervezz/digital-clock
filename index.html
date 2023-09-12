@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Digital Clock</title>
+   <style>
+      :root {
+         --text-shadow: -1px 11px 4px black;
+      }
+
+      @font-face {
+         font-family: Digital;
+         src: url("DigitalNumbers-Regular.woff");
+      }
+
+      * {
+         margin: 0px;
+         padding: 0px;
+         box-sizing: border-box;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+         margin: 0px;
+         padding: 0px;
+      }
+
+      p {
+         margin: 0px;
+         padding: 0px;
+      }
+
+      body {
+         width: 100%;
+         height: 100vh;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+         font-family: Digital;
+         color: white;
+         overflow: hidden;
+      }
+
+      .digital_clock_wrapper {
+         width: 511px;
+         height: 211px;
+         background-color: rgb(61 68 71);
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         border: 20px solid rgb(53, 58, 68);
+         border-radius: 33px;
+         user-select: none;
+         box-shadow: rgb(0 0 0 / 79%) 0px 0px 9px 5px inset;
+         position: relative;
+      }
+
+      .digital_clock_wrapper::before {
+         content: '';
+         width: 80%;
+         height: 32px;
+         background: rgb(53 58 68);
+         border-radius: 1rem;
+         position: absolute;
+         top: -34px;
+      }
+
+      .digital_clock_wrapper .clock #time__ {
+         text-shadow: var(--text-shadow);
+         font-size: 74px;
+         color: hsl(0, 0%, 95%);
+      }
+
+      .digital_clock_wrapper .clock {
+         position: relative;
+      }
+
+      .digital_clock_wrapper .clock #p_a {
+         text-shadow: var(--text-shadow);
+         position: absolute;
+         top: -17px;
+         left: 15px;
+         color: hsl(0, 0%, 95%);
+      }
+   </style>
+</head>
+
+<body>
+   <div class="digital_clock_wrapper">
+      <div class="clock">
+         <span id="p_a"></span>
+         <span id="time__"></span>
+      </div>
+   </div>
+   <script defer>
+      function clock() {
+         const clockElement = document.getElementById('time__');
+         const dn = document.getElementById('p_a');
+         const now = new Date();
+         const hours = now.getHours() % 12 || 12;
+         const mintues = now.getMinutes().toString().padStart(2, "0");
+         const seconds = now.getSeconds().toString().padStart(2, "0");
+         const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+         const time = `${hours}:${mintues}:${seconds}`;
+         clockElement.textContent = time;
+         dn.textContent = ampm;
+      }
+
+      function startClock() {
+         setInterval(clock, 1000);
+      }
+
+      startClock();
+   </script>
+</body>
+
+</html>
